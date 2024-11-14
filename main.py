@@ -43,3 +43,22 @@ for (s1, s2, s3) in second_order_transitions:
     probability = count / total_count if total_count > 0 else 0
     transition_counts[(s1, s2, s3)] = probability
 
+# Create a DataFrame for the second-order transition matrix
+transition_matrix = pd.DataFrame(
+    {
+        (s1, s2): [transition_counts[(s1, s2, s3)] for s3 in states]
+        for s1 in states for s2 in states
+    },
+    index=states
+)
+
+print("Second-Order Transition Matrix with Correlated Commodity:")
+print(transition_matrix)
+
+# Visualize the transition matrix as a heatmap
+plt.figure(figsize=(14, 10))
+sns.heatmap(transition_matrix, annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Second-Order Transition Probability Matrix with Wheat and Corn States")
+plt.xlabel("(Previous State 1, Previous State 2)")
+plt.ylabel("Current State")
+plt.show()
