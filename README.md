@@ -1,10 +1,7 @@
-Here's an updated `README.md` file for your contrarian trading model based on wheat and corn futures:
 
----
+## Hidden-Markov Trading Model for Wheat and Corn Futures
 
-# Contrarian Trading Model for Wheat and Corn Futures
-
-This project implements a contrarian trading strategy for wheat and corn futures using a second-order Markov model. The model generates trading signals by identifying low-probability events in historical price transitions, aiming to take advantage of potential reversals in these commodities' markets.
+Using a second-order Markov model, this project implements a contrarian trading strategy for wheat and corn futures. The model generates trading signals by identifying low-probability events in historical price transitions, aiming to take advantage of potential reversals in these commodities markets.
 
 ## Overview
 
