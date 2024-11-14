@@ -25,3 +25,21 @@ conditions = [
 states = ['both_up', 'wheat_up_corn_down', 'wheat_down_corn_up', 'both_down']
 data['state'] = np.select(conditions, states)
 
+# Shift states to calculate second-order transitions
+data['prev_state'] = data['state'].shift(1)
+data['two_prev_state'] = data['state'].shift(2)
+
+# Remove rows with NaN values caused by shifting
+data.dropna(inplace=True)
+
+# Define all possible second-order transitions for a Markov process with wheat and corn states
+second_order_transitions = [(s1, s2, s3) for s1 in states for s2 in states for s3 in states]
+
+# Calculate second-order transition probabilities
+transition_counts = {}
+for (s1, s2, s3) in second_order_transitions:
+    count = len(data[(data['two_prev_state'] == s1) & (data['prev_state'] == s2) & (data['state'] == s3)])
+    total_count = len(data[(data['two_prev_state'] == s1) & (data['prev_state'] == s2)])
+    probability = count / total_count if total_count > 0 else 0
+    transition_counts[(s1, s2, s3)] = probability
+
